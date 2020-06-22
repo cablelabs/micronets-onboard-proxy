@@ -32,13 +32,13 @@ $(DEBPATH):
 	mkdir $(VDIR) # Create debian package construction directory
 	mkdir $(TARGETDIR) # Create output directory.
 	mkdir $(ARDIR) # Create debug archive output directory.
-	mkdir $(VDIR)/opt/$(FBASE)/node # Create subdirectory for node application
 
 	# Copy the source filesystems SDIRS to the package construction directory.
 	$(foreach var,$(SDIRS),(cd $(var); tar cf - .) | (cd $(VDIR); tar xf -);)
 
 	# Copy the micronets-onboard-proxy node application under $(VDIR)/opt/$(FBASE) to the package construction directory.
-	(cd ../node; tar cf - .) | (cd $(VDIR)/opt/$(FBASE)/node; tar xf -);)
+	#(cd ../node; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
+	(cd ..; tar cf - node) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
 
 	# Create the build metadata files.
 	date -Iseconds > $(IDIR)/BUILDTIME
