@@ -233,7 +233,7 @@ async function deriveDeviceId(mac) {
 	//var tokens = mac.split(":");
 	//return "device"+tokens[4]+tokens[5];
 	var deviceId =  mac.replace(/:/g, "")
-	console.log(deviceId);
+	//console.log(deviceId);
 	return deviceId;
 }
 

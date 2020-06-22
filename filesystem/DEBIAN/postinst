@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy/service
+MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy
 
 
 function hr {
@@ -16,7 +16,7 @@ function install-onboard-proxy-service {
   popd > /dev/null
 
   echo "Installing micronets-onboard-proxy service."
-  mv ${MICRONETS_OP_SERVICE_DIR}/micronets-onboard-proxy.service /lib/systemd/system > /dev/null 2>&1
+  mv ${MICRONETS_OP_SERVICE_DIR}/service/micronets-onboard-proxy.service /lib/systemd/system > /dev/null 2>&1
   echo "Reloading service files."
   systemctl daemon-reload
   echo "Enabling micronets-onboard-proxy service."
