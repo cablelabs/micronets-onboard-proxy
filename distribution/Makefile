@@ -38,10 +38,10 @@ $(DEBPATH):
 
 	# Copy the micronets-onboard-proxy node application under $(VDIR)/opt/$(FBASE) to the package construction directory.
 	#(cd ../node; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
-	(pushd ..; tar cf - node) | (cd $(VDIR)/opt/$(FBASE); tar xf -);popd)
+	(pushd ..; tar cf - node) | (cd $(VDIR)/opt/$(FBASE); tar xf -);) popd
     
     # Copy the service file
-	(pushd ../service; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -); popd)
+	(pushd ../service; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);) popd
 
 	# Create the build metadata files.
 	date -Iseconds > $(IDIR)/BUILDTIME
