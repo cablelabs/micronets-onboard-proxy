@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy/
+MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy/service
 
 
 function hr {
