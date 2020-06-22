@@ -2,7 +2,7 @@
 
 VERSION=1.0.0
 DIST=U16.04
-FBASE=micronets-onboard-proxy/node
+FBASE=micronets-onboard-proxy
 SDIRS=../filesystem
 IBASE=/opt
 
@@ -15,7 +15,7 @@ PUSHUSER=sjohnson
 VDIR=$(FBASE)-$(VERSION)-$(DIST)
 DEBFILE=$(VDIR).deb
 DEBPATH=$(TARGETDIR)/$(DEBFILE)
-IDIR=$(VDIR)$(IBASE)/$(FBASE)
+IDIR=$(VDIR)$(IBASE)/$(FBASE)/node
 
 all: clean deb
 
