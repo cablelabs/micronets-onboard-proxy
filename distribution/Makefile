@@ -15,7 +15,7 @@ PUSHUSER=sjohnson
 VDIR=$(FBASE)-$(VERSION)-$(DIST)
 DEBFILE=$(VDIR).deb
 DEBPATH=$(TARGETDIR)/$(DEBFILE)
-IDIR=$(VDIR)$(IBASE)/$(FBASE)/node
+IDIR=$(VDIR)$(IBASE)/$(FBASE)
 
 all: clean deb
 
@@ -37,7 +37,7 @@ $(DEBPATH):
 	$(foreach var,$(SDIRS),(cd $(var); tar cf - .) | (cd $(VDIR); tar xf -);)
 
 	# Copy the micronets-onboard-proxy node application under $(VDIR)/opt/$(FBASE) to the package construction directory.
-	(cd ../node; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
+	(cd ../node; tar cf - .) | (cd $(VDIR)/opt/$(FBASE)/node; tar xf -);)
 
 	# Create the build metadata files.
 	date -Iseconds > $(IDIR)/BUILDTIME
