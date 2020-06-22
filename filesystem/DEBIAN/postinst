@@ -1,0 +1,46 @@
+#!/bin/bash
+
+MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy/
+MICRONETS_OP_VIRTENV_NAME=virtualenv
+
+
+function hr {
+  echo "------------------------------------------------------------------------------------------------------"
+}
+
+function install-onboard-proxy-service {
+  pushd ${MICRONETS_OP_SERVICE_DIR} > /dev/null
+  echo "Creating virtualenv ${MICRONETS_OP_VIRTENV_NAME} (in ${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME})"
+  rm -rf "${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME}"
+  #virtualenv --clear -p $(which python3.6) ${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME}
+  virtualenv --clear ${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME}
+  source $MICRONETS_OP_VIRTENV_NAME/bin/activate
+  #echo "Running: pip install -r requirements.txt"
+  #pip install -r requirements.txt
+  popd > /dev/null
+  echo "Installing micronets-onboard-proxy service."
+  mv ${MICRONETS_OP_SERVICE_DIR}/micronets-onboard-proxy.service /lib/systemd/system > /dev/null 2>&1
+  echo "Reloading service files."
+  systemctl daemon-reload
+  echo "Enabling micronets-onboard-proxy service."
+  systemctl enable micronets-onboard-proxy.service
+  echo "Starting micronets-onboard-proxy service."
+  systemctl start micronets-onboard-proxy.service
+}
+
+function main {
+  {
+    echo "POSTINSTALL: ${TAG}"
+    install-onboard-proxy-service
+  } 2>&1 | logger -t ${TAG}
+}
+
+TS=`date +%j'T'%H%M%S`
+TAG="mnop-post-${TS}"
+if [ ! -z "${2}" ]; then
+  echo "Upgrading from version ${2}"
+fi
+main
+grep "${TAG}" /var/log/syslog
+exit 0
+
