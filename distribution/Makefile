@@ -41,7 +41,7 @@ $(DEBPATH):
 	(cd ..; tar cf - node) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
     
     # Copy the service file
-    cp ../service/micronets-onboard-proxy.service $(VDIR)/opt/$(FBASE)
+	(cd ../service; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
 
 	# Create the build metadata files.
 	date -Iseconds > $(IDIR)/BUILDTIME
