@@ -37,8 +37,6 @@ $(DEBPATH):
 	$(foreach var,$(SDIRS),(cd $(var); tar cf - .) | (cd $(VDIR); tar xf -);)
 
 	# Copy the micronets-onboard-proxy node application under $(VDIR)/opt/$(FBASE) to the package construction directory.
-	#(cd ../node; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
-	#(cd ..; tar cf - node service/micronets-onboard-proxy.service) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
 	(cd ..; tar cf - node) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
 	(cd ../service; tar cf - micronets-onboard-proxy.service) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
     
@@ -53,16 +51,16 @@ $(DEBPATH):
 	# Build the $(DEBFILE).
 	fakeroot dpkg-deb --build $(VDIR)
 
-  # Move the $(DEBFILE) to its final location in the $(TARGETDIR) directory.
+  	# Move the $(DEBFILE) to its final location in the $(TARGETDIR) directory.
 	mv $(DEBFILE) $(DEBPATH)
 
-  # Remove the package constuction directory as it is no longer needed.
+  	# Remove the package constuction directory as it is no longer needed.
 	rm -rf $(VDIR)
 
 	# DEBUG: Dump the $(DEBFILE) info.
 	dpkg-deb --info $(DEBPATH)
 
-  # DEBUG: Dump out the contents of the data and control archives in the resultant package file $(DEBPATH).
+  	# DEBUG: Dump out the contents of the data and control archives in the resultant package file $(DEBPATH).
 	(cd $(ARDIR); ar x ../$(DEBFILE))
 	tar tf $(ARDIR)/data.tar.xz    | sort > $(TARGETDIR)/data.lst
 	tar tf $(ARDIR)/control.tar.gz | sort > $(TARGETDIR)/control.lst

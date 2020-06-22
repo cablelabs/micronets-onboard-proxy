@@ -19,18 +19,17 @@ const gateway = require('../lib/gateway')
 router.use(session({ secret: 'micronets-dpp', name: sessionCookieName }));
 
 function checkAuth (req, res, next) {
-	var urlPath = URL.parse(req.url).pathname;
-
+/*
 	if (!req.session || !req.session.authenticated) {
 		res.status(401).send('not authenticated');
 	}
 	else {
 		next();
 	}
-
+*/
 	// We are logging in directly to the gateway's onboard proxy via IP address. For now, no user/password is required.
 	// (this would require an admin portal to change the credentials)
-	//next();
+	next();
 }
 
 // Mobile config
