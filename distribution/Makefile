@@ -32,6 +32,7 @@ $(DEBPATH):
 	mkdir $(VDIR) # Create debian package construction directory
 	mkdir $(TARGETDIR) # Create output directory.
 	mkdir $(ARDIR) # Create debug archive output directory.
+	mkdir $(VDIR)/opt/$(FBASE)/node # Create subdirectory for node application
 
 	# Copy the source filesystems SDIRS to the package construction directory.
 	$(foreach var,$(SDIRS),(cd $(var); tar cf - .) | (cd $(VDIR); tar xf -);)
