@@ -1,0 +1,31 @@
+{
+  "name": "micronets-onboard-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "https://github.com/cablelabs/micronets-onboard-proxy",
+  "description": "Micronets Onboard Proxy",
+  "scripts": {
+    "start": "node ./mso-portal",
+    "docker-build": "docker build -t community.cablelabs.com:4567/micronets-docker/micronets-onboard-proxy .",
+    "docker-publish": "docker login community.cablelabs.com:4567; docker push community.cablelabs.com:4567/micronets-docker/micronets-onboard-proxy"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "express-session": "^1.15.6",
+    "fs-extra": "~4.0.2",
+    "fs-promise": "^2.0.3",
+    "morgan": "~1.9.0",
+    "nunjucks": "^3.2.0",
+    "password-generator": "^2.3.2",
+    "pug": "2.0.0-beta11",
+    "randomhex": "^0.1.5",
+    "request": "^2.34",
+    "request-promise": "^4.2.2",
+    "serve-favicon": "~2.4.5",
+    "url": "^0.11.0",
+    "uuid": "~3.1.0"
+  }
+}
