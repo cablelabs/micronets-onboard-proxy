@@ -2,4 +2,4 @@ Package: micronets-onboard-proxy
 Maintainer: Steve Johnson <s.johnson-contractor@cablelabs.com>
 Architecture: all
 Description: Micronets Onboard Proxy
-Depends: node.js
+Depends: nodejs

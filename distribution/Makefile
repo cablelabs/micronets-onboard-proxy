@@ -1,17 +1,13 @@
-#.PHONY: all clean distclean deb scp
 .PHONY: all clean distclean deb
 
 VERSION=1.0.0
 DIST=U16.04
-FBASE=micronets-onboard-proxy
+FBASE=micronets-onboard-proxy/node
 SDIRS=../filesystem
 IBASE=/opt
 
 TARGETDIR=target
 ARDIR=$(TARGETDIR)/ar
-
-#SCPUSER=root
-#SCPHOST=ovs01
 
 #PUSHUSER=cpratt
 PUSHUSER=sjohnson
@@ -40,9 +36,8 @@ $(DEBPATH):
 	# Copy the source filesystems SDIRS to the package construction directory.
 	$(foreach var,$(SDIRS),(cd $(var); tar cf - .) | (cd $(VDIR); tar xf -);)
 
-	# Copy the micronets-onboard-proxy-service under $(VDIR)/opt/$(FBASE) to the package construction directory.
-	(cd ../micronets-onboard-proxy-service; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
-	rm -rf $(VDIR)/opt/$(FBASE)/.idea
+	# Copy the micronets-onboard-proxy node application under $(VDIR)/opt/$(FBASE) to the package construction directory.
+	(cd ../node; tar cf - .) | (cd $(VDIR)/opt/$(FBASE); tar xf -);)
 
 	# Create the build metadata files.
 	date -Iseconds > $(IDIR)/BUILDTIME
@@ -69,9 +64,6 @@ $(DEBPATH):
 	tar tf $(ARDIR)/data.tar.xz    | sort > $(TARGETDIR)/data.lst
 	tar tf $(ARDIR)/control.tar.gz | sort > $(TARGETDIR)/control.lst
 	echo "The $(ARDIR) directory is for debugging purposes: Do not distribute.\n\nContains un-archived contents of $(DEBFILE)." > $(ARDIR)/README
-
-#scp: $(DEBPATH)
-#	scp $(DEBPATH) $(SCPUSER)@$(SCPHOST):
 
 push-artifacts: $(DEBPATH)
 	curl -u$(PUSHUSER) -XPUT \

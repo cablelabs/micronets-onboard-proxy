@@ -1,7 +1,6 @@
 #!/bin/bash
 
 MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy/
-MICRONETS_OP_VIRTENV_NAME=virtualenv
 
 
 function hr {
@@ -10,14 +9,11 @@ function hr {
 
 function install-onboard-proxy-service {
   pushd ${MICRONETS_OP_SERVICE_DIR} > /dev/null
-  echo "Creating virtualenv ${MICRONETS_OP_VIRTENV_NAME} (in ${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME})"
-  rm -rf "${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME}"
-  #virtualenv --clear -p $(which python3.6) ${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME}
-  virtualenv --clear ${MICRONETS_OP_SERVICE_DIR}/${MICRONETS_OP_VIRTENV_NAME}
-  source $MICRONETS_OP_VIRTENV_NAME/bin/activate
-  #echo "Running: pip install -r requirements.txt"
-  #pip install -r requirements.txt
+    # Ensure system service knows where to find node
+    mkdir bin
+    ln -s `which node` bin/node
   popd > /dev/null
+
   echo "Installing micronets-onboard-proxy service."
   mv ${MICRONETS_OP_SERVICE_DIR}/micronets-onboard-proxy.service /lib/systemd/system > /dev/null 2>&1
   echo "Reloading service files."

@@ -1,0 +1,18 @@
+[Unit]
+Description=Micronets Onboard Proxy Service
+After=network-online.target
+
+[Service]
+Type=idle
+WorkingDirectory=/opt/micronets-onboard-proxy/node
+ExecStart=/opt/micronets-onboard-proxy/bin/node onboard-proxy.js
+# User=micronets
+# Group=micronets
+StandardOutput=syslog
+StandardError=syslog
+SyslogFacility=none
+SyslogIdentifier=micronets-op-service
+SyslogLevel=debug
+
+[Install]
+WantedBy=multi-user.target

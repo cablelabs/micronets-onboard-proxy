@@ -28,7 +28,8 @@ The exposed API is the same as for the MSO Portal (DPP routes). It supports the 
 
 ```
 # Node.js 
-sudo apt install nodejs-legacy
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
 
 ## Cloning the repository:
