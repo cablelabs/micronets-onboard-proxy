@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy-service/
+MICRONETS_OP_SERVICE_DIR=/opt/micronets-onboard-proxy/
 
 
 function hr {
@@ -10,6 +10,7 @@ function hr {
 function install-onboard-proxy-service {
   pushd ${MICRONETS_OP_SERVICE_DIR} > /dev/null
     # Ensure system service knows where to find node
+    rm -rf bin
     mkdir bin
     ln -s `which node` bin/node
   popd > /dev/null
